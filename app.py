@@ -1,10 +1,16 @@
-# save this as app.py
-from flask import Flask
-from get_str import learning_language_str
+from flask import Flask, render_template, request
+from get_str import learning_language_array
 
 app = Flask(__name__)
 
 
 @app.route("/")
 def hello():
-    return learning_language_str
+    # part = int(request.args.get('part'))
+    return render_template('index.html', learning_language_array=learning_language_array, part=searchPart())
+
+
+@app.route("/", methods=['GET'])
+def searchPart():
+    part = int(request.args.get('part'))
+    return part

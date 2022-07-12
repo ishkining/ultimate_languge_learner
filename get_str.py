@@ -10,10 +10,10 @@ my_language_str = str(my_language.fetch())
 # print(my_language.fetch())
 
 learning_language = srt.find_manually_created_transcript(['ko'])
-learning_language_str = ''
+learning_language_array = []
 
 for object in learning_language.fetch():
-    learning_language_str += '<p>' + object['text'] + "</p>"
+    learning_language_array.append(object['text'])
 # print(learning_language.fetch())
 
 # for transcript in srt:
