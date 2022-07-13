@@ -9,6 +9,48 @@
     <p>{{ learning_language_array[part] }}</p>
     <form method="get">
         <input  id="part" name="part" hidden>
+        <input type="text" id="inputText" name="inputText">
+        <p hidden id="checkText">{{ learning_language_array[part] }}</p>
+        <input type="submit" value="submit" id="continue" onclick="changePart()">
+    </form>
+</body>
+</html> 
+
+<script type="text/javascript">
+    if (window.location.search.substr(1) == "") 
+    { 
+        window.location.href = window.location.href + '?part=0'; 
+    }   
+    function changePart()
+    {
+        alert(document.getElementById('checkText').innerHTML)
+        alert(document.getElementById('inputText').value)
+        console.lo
+        if(document.getElementById('checkText').innerHTML == document.getElementById('inputText').value)
+        {
+            alert(true)
+            document.getElementById('part').value = parseInt(window.location.search.substr(6)) + 1
+        }
+        else
+        {
+            alert(false)
+            document.getElementById('part').value = parseInt(window.location.search.substr(6))
+        }
+        
+    }
+</script>
+<!-- <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate Language Learner</title>
+</head>
+<body>
+    <p>{{ learning_language_array[part] }}</p>
+    <form method="get">
+        <input  id="part" name="part" hidden>
+        <input type="text" id="inputText">
         <input type="submit" value="submit" id="continue" onclick="changePart()">
     </form>
 </body>
@@ -21,6 +63,17 @@
     }   
     function changePart()
     {
-        document.getElementById('part').value = parseInt(window.location.search.substr(6)) + 1
+        // if(document.getElementById('inputText').value == '{{ learning_language_array[part] }}' )
+        // {
+        //     alert(true)
+        //     document.getElementById('part').value = parseInt(window.location.search.substr(6))
+        // }
+        // else
+        // {
+        //     alert(false)
+        //     document.getElementById('part').value = parseInt(window.location.search.substr(6))
+        // }
+        document.getElementById('part').value = parseInt(window.location.search.substr(6)) + 2
+        // document.getElementById('part').value = parseInt(window.location.search.substr(6)) + 1
     }
-</script>
+</script> -->
