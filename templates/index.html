@@ -6,17 +6,28 @@
     <title>Ultimate Language Learner</title>
 </head>
 <body>
-    <p>{{ learning_language_array[part] }}</p>
+    <iframe width="420" height="315" id="youtubeVideo" type="text/html">
+    </iframe>
+    <button id="btnplay" onclick="playVideo()">PLAY</button>
+
+    <p>{{ learning_language_array[part]["text"] }}</p>
     <form method="get">
         <input  id="part" name="part" hidden>
         <input type="text" id="inputText" name="inputText">
-        <p hidden id="checkText">{{ learning_language_array[part] }}</p>
+        <p hidden id="checkText">{{ learning_language_array[part]["text"] }}</p>
+        <p hidden id="startVideo">{{ learning_language_array[part]["start"] }}</p>
+        <p hidden id="durationVideo">{{ learning_language_array[part]["duration"] }}</p>
+        <p hidden id="urlForVideo">{{ url }}</p>
         <input type="submit" value="submit" id="continue" onclick="changePart()">
     </form>
 </body>
 </html> 
 
 <script type="text/javascript">
+    document.getElementById('youtubeVideo').src = "https://www.youtube.com/embed/" + document.getElementById('urlForVideo').innerHTML + "?key=AIzaSyDrjDPmxDxWjc7Qv817XP0f4CCXJqg_-mQ&controls=0" +
+                                                "&start=" + parseInt(document.getElementById('startVideo').innerHTML) +
+                                                "&end=" + (parseInt(document.getElementById('startVideo').innerHTML) + parseInt(document.getElementById('durationVideo').innerHTML)+1)
+
     if (window.location.search.substr(1) == "") 
     { 
         window.location.href = window.location.href + '?part=0'; 
@@ -37,6 +48,10 @@
             document.getElementById('part').value = parseInt(window.location.search.substr(6))
         }
         
+    }
+    function playVideo(){
+        alert(document.getElementById('youtubeVideo').src )
+        document.getElementById('youtubeVideo').playVideo();
     }
 </script>
 <!-- <html lang="en">
