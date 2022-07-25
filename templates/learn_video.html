@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultimate Language Learner</title>
+    <title>Learn from Video</title>
 </head>
 <body>
     <iframe width="420" height="315" id="youtubeVideo" type="text/html">
@@ -13,7 +13,7 @@
     <p>{{ learning_language_array[part]["text"] }}</p>
     <form method="get">
         <input  id="part" name="part" hidden>
-        <input type="text" id="inputText" name="inputText">
+        <input type="text" id="inputText1" name="inputText1">
         <p hidden id="checkText">{{ learning_language_array[part]["text"] }}</p>
         <p hidden id="startVideo">{{ learning_language_array[part]["start"] }}</p>
         <p hidden id="durationVideo">{{ learning_language_array[part]["duration"] }}</p>
@@ -29,15 +29,15 @@
                                                 "&end=" + (parseInt(document.getElementById('startVideo').innerHTML) + parseInt(document.getElementById('durationVideo').innerHTML)+1)
 
     if (window.location.search.substr(1) == "") 
-    { 
+    {
         window.location.href = window.location.href + '?part=0'; 
     }   
     function changePart()
     {
-        alert(document.getElementById('checkText').innerHTML)
-        alert(document.getElementById('inputText').value)
-        console.lo
-        if(document.getElementById('checkText').innerHTML == document.getElementById('inputText').value)
+        console.log(document.getElementById('checkText').innerHTML.replace('\n', ' ').replace('  ', ' '))
+        alert(document.getElementById('inputText1').value)
+
+        if(document.getElementById('checkText').innerHTML.replace('\n', ' ').replace('  ', ' ') == document.getElementById('inputText1').value)
         {
             alert(true)
             document.getElementById('part').value = parseInt(window.location.search.substr(6)) + 1

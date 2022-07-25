@@ -1,19 +1,24 @@
 from youtube_transcript_api import YouTubeTranscriptApi
 
-url = 'n6oae38jbyg'
 # srt = YouTubeTranscriptApi.get_transcript(url, languages=['en', 'ko'])
 
-srt = YouTubeTranscriptApi.list_transcripts(url)
+#n6oae38jbyg
+def find_srt(url):
+    srt = YouTubeTranscriptApi.list_transcripts(url)
 
-my_language = srt.find_manually_created_transcript(['en'])
-my_language_str = str(my_language.fetch())
-# print(my_language.fetch())
+    my_language = srt.find_manually_created_transcript(['en'])
+    my_language_str = str(my_language.fetch())
+    # print(my_language.fetch())
 
-learning_language = srt.find_manually_created_transcript(['ko'])
-learning_language_array = []
+    learning_language = srt.find_manually_created_transcript(['ko'])
+    learning_language_array = []
 
-for object in learning_language.fetch():
-    learning_language_array.append(object)
+    for object in learning_language.fetch():
+        learning_language_array.append(object)
+    return learning_language_array
+
+
+
 # print(learning_language.fetch())
 
 # for transcript in srt:
