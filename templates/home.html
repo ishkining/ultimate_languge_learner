@@ -3,12 +3,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/home.css') }}">
+    <link rel="icon" href="../static/logo.png">
     <title>Ultimate Language Learner</title>
 </head>
 <body>
     <form method="post" action="{{ url_for('learn_video') }}">
-        <input type="text" id="inputText" name="inputText">
-        <input type="submit" value="submit" id="continue">
+        <div class="Wrapper">
+            <div class="Input">
+                <input type="text" id="inputText" name="inputText" class="Input-text">
+                <label for="inputText" class="Input-label">Youtube link please</label>
+            </div>
+            <div class="container">
+                <input type="submit" value="submit" id="continue" class="btn effect04">
+            </div>
+        </div>
     </form>
 </body>
 </html>

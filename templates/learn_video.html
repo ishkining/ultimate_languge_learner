@@ -3,23 +3,32 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/learn_video.css') }}">
+    <link rel="icon" href="../static/logo.png">
     <title>Learn from Video</title>
 </head>
 <body>
-    <iframe width="420" height="315" id="youtubeVideo" type="text/html">
-    </iframe>
-    <button id="btnplay" onclick="playVideo()">PLAY</button>
+    <div class="container">
+        <iframe width="420" height="315" id="youtubeVideo" type="text/html">
+        </iframe>
+        <button id="btnplay" onclick="playVideo()">PLAY</button>
 
-    <p>{{ learning_language_array[part]["text"] }}</p>
-    <form method="get">
-        <input  id="part" name="part" hidden>
-        <input type="text" id="inputText1" name="inputText1">
-        <p hidden id="checkText">{{ learning_language_array[part]["text"] }}</p>
-        <p hidden id="startVideo">{{ learning_language_array[part]["start"] }}</p>
-        <p hidden id="durationVideo">{{ learning_language_array[part]["duration"] }}</p>
-        <p hidden id="urlForVideo">{{ url }}</p>
-        <input type="submit" value="submit" id="continue" onclick="changePart()">
-    </form>
+        <p>{{ learning_language_array[part]["text"] }}</p>
+        <div class="container-buttons">
+            {%for word in learning_language_array[part]["text"].split(' ')%}
+                <button class="button-words">{{word}}</button>
+            {%endfor%}
+        </div>
+        <form method="get">
+            <input  id="part" name="part" hidden>
+            <input type="text" id="inputText1" name="inputText1">
+            <p hidden id="checkText">{{ learning_language_array[part]["text"] }}</p>
+            <p hidden id="startVideo">{{ learning_language_array[part]["start"] }}</p>
+            <p hidden id="durationVideo">{{ learning_language_array[part]["duration"] }}</p>
+            <p hidden id="urlForVideo">{{ url }}</p>
+            <input type="submit" value="submit" id="continue" onclick="changePart()">
+        </form>
+    </div>
 </body>
 </html> 
 

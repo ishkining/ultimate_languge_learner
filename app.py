@@ -17,7 +17,7 @@ def learn_video():
     try:
         if request.values['inputText'] is not None:
             print('Hi have a good day!')
-            url_for_learning_languages = request.values['inputText']
+            url_for_learning_languages = request.values['inputText'].split('=')[1].split('&')[0]
             learning_language_list = find_srt(url_for_learning_languages)
     except KeyError:
         pass
