@@ -72,6 +72,20 @@ body {
     color: black;
 }
 
+iframe {
+    border-color: #7DCE13;
+}
+
+.container-ordered-buttons {
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    text-align: center;
+    padding:  40px 0px;
+    width: 400px;
+    color: black;
+    background-color: #A25B5B;
+}
 .container-buttons {
     align-items: center;
     flex-direction: row;
