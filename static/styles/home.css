@@ -151,63 +151,116 @@ body {
 
 .container {
     width: 1000px;
-    height: 100px;
+    height: 45px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.btn {
+.button-sumbit {
+    background-color: #D83A56;
+    border: solid transparent;
+    border-radius: 16px;
+    border-width: 0 0 4px;
+    box-sizing: border-box;
+    color: #FFEAC9;
+    cursor: pointer;
+    display: inline-block;
+    font-family: din-round,sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: .8px;
+    line-height: 20px;
+    outline: none;
+    overflow: visible;
+    padding: 13px 16px;
     margin-top: 20px;
     text-align: center;
-  letter-spacing: 0.1em;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 45px;
-  max-width: 160px;
-  position: relative;
-  text-decoration: none;
-  text-transform: uppercase;
-  width: 100%;
-    color: #F6E3C5;
-}
-.btn:hover {
-  text-decoration: none;
+    text-transform: uppercase;
+    touch-action: manipulation;
+    transform: translateZ(0);
+    transition: filter .2s;
+    user-select: none;
+    -webkit-user-select: none;
+    vertical-align: middle;
+    white-space: nowrap;
+    width: auto;
 }
 
-/*btn_background*/
-.effect04 {
-  color: #6CC4A1;
-  outline: solid  2px #4CACBC;
-  position: relative;
-  transition-duration: 0.4s;
-  overflow: hidden;
-}
-
-
-/* 文字1を上に */
-.effect04:hover{
-
-  background-color: #4CACBC;
-}
-
-
-/*文字2*/
-.effect04::before{
-  content: attr(data-sm-link-text);
-	color: #90C8AC;
-  position: absolute;
+.button-sumbit:after {
+  background-clip: padding-box;
+  background-color: #D83A56;
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+  bottom: -4px;
+  content: "";
   left: 0;
+  position: absolute;
   right: 0;
-  margin: auto;
-  -webkit-transform: translateY(500%) scale(-0.1,20);
-          transform: translateY(500%) scale(-0.1,20);
+  top: 0;
+  z-index: -1;
 }
 
-/* HOVERしたら文字2を上に */
-.effect04:hover::before{
-  letter-spacing: 0.05em;
-  -webkit-transform: translateY(0) scale(1,1);
-          transform: translateY(0) scale(1,1);
+.button-sumbit:focus {
+  user-select: auto;
+}
+
+.button-sumbit:hover:not(:disabled) {
+  filter: brightness(1.1);
+  -webkit-filter: brightness(1.1);
+}
+
+.button-sumbit:disabled {
+  cursor: auto;
+}
+
+.toggle-pill-color input[type="checkbox"] {
+  display: none;
+}
+.toggle-pill-color input[type="checkbox"] + label {
+  display: block;
+  position: relative;
+  width: 3em;
+  height: 1.6em;
+  margin-bottom: 20px;
+  border-radius: 1em;
+  background: #e84d4d;
+  box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-transition: background 0.1s ease-in-out;
+  transition: background 0.1s ease-in-out;
+}
+.toggle-pill-color input[type="checkbox"] + label:before {
+  content: "";
+  display: block;
+  width: 1.2em;
+  height: 1.2em;
+  border-radius: 1em;
+  background: #fff;
+  box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  left: 0.2em;
+  top: 0.2em;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+.toggle-pill-color input[type="checkbox"]:checked + label {
+  background: #47cf73;
+}
+.toggle-pill-color input[type="checkbox"]:checked + label:before {
+  box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.2);
+  left: 1.6em;
+}
+
+.checkbox {
+  width: 1000px;
+  margin-top: 15px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

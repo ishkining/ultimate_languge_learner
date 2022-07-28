@@ -7,13 +7,22 @@
     <link rel="icon" href="../static/logo.png">
     <title>Learn from Video</title>
 </head>
-<body>
+<body style="background-image: url('../static/{{ (part + 1) }}-part.png')">
     <div class="container">
-        <iframe width="420" height="315" id="youtubeVideo" type="text/html">
+        <iframe width="650" height="350" id="youtubeVideo" type="text/html">
         </iframe>
-        <button id="btnplay" onclick="playVideo()">PLAY</button>
+        <div>
+            <button id="btnplay" onclick="playVideo()" class="button-play">PLAY🛴</button>
+            <button class="button-play"><a href="https://pixe.la/v1/users/ishkining/graphs/trackprogress.html"
+                                           style="text-decoration: none" target="_blank">Check Progress🚩</a></button>
+        </div>
 
-        <p>{{ learning_language_array[part]["text"] }}</p>
+
+        <p>{{ my_language_array[part]["text"] }}</p>
+        <details>
+          <summary>Korean subtitles</summary>
+          <p>{{ learning_language_array[part]["text"] }}</p>
+        </details>
         <div class="container-ordered-buttons" id="ordered-word-div"></div>
         <div class="container-buttons">
 
@@ -25,14 +34,13 @@
         </div>
         <form method="get">
             <input  id="part" name="part" hidden>
-            <input type="text" id="inputText1" name="inputText1">
+            <input type="text" id="inputText1" name="inputText1" class="input-sentence">
             <p hidden id="checkText">{{ learning_language_array[part]["text"] }}</p>
             <p hidden id="startVideo">{{ learning_language_array[part]["start"] }}</p>
             <p hidden id="durationVideo">{{ learning_language_array[part]["duration"] }}</p>
             <p hidden id="urlForVideo">{{ url }}</p>
-            <input type="submit" value="submit" id="continue" onclick="changePart()">
+            <input type="submit" value="NEXT" id="continue" class="button-sumbit" onclick="changePart()">
         </form>
-    {{ graph_data }}
     </div>
 </body>
 </html> 
@@ -75,15 +83,41 @@
     }
 
     let counter_of_order = 0
+    let error_counter = 0
     function checkOrder(order)
     {
         if(counter_of_order == order)
         {
+            error_counter = 0
+            change_color_state_button(order, "green")
             document.getElementById('ordered-word-div').append(document.getElementById('word'+order))
             counter_of_order += 1
+            if(document.getElementsByClassName('button-words').length
+                == document.getElementById('ordered-word-div').children.length)
+            {
+                document.getElementById('ordered-word-div').style.backgroundColor = "#B5FE83";
+            }
+        }
+        else
+        {
+            error_counter += 1
+            change_color_state_button(order, "red")
+            if(error_counter > 3)
+            {
+                change_color_state_button(counter_of_order, "green")
+            }
         }
     }
 
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async function change_color_state_button(order, color) {
+        document.getElementById('word'+order).style.backgroundColor = color;
+        await sleep(1000);
+        document.getElementById('word'+order).style.backgroundColor = "#ffffff";
+    }
 </script>
 <!-- <html lang="en">
 <head>
