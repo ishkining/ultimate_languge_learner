@@ -3,6 +3,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
     <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/learn_video.css') }}">
     <link rel="icon" href="../static/logo.png">
     <title>Learn from Video</title>
@@ -12,7 +13,7 @@
         <iframe width="650" height="350" id="youtubeVideo" type="text/html">
         </iframe>
         <div>
-            <button id="btnplay" onclick="playVideo()" class="button-play">PLAY🛴</button>
+            <button id="btnplay" onclick="myFunction()" class="button-play">PLAY🛴</button>
             <button class="button-play"><a href="https://pixe.la/v1/users/ishkining/graphs/trackprogress.html"
                                            style="text-decoration: none" target="_blank">Check Progress🚩</a></button>
         </div>
@@ -20,7 +21,7 @@
 
         <p>{{ my_language_array[part]["text"] }}</p>
         <details>
-          <summary>Korean subtitles</summary>
+          <summary>Second subtitles</summary>
           <p>{{ learning_language_array[part]["text"] }}</p>
         </details>
         <div class="container-ordered-buttons" id="ordered-word-div"></div>
@@ -28,8 +29,8 @@
 
 
             {% set words_array = learning_language_array[part]["text"].split(' ') %}
-            {%for word in shuffled_words_array%}
-                <button class="button-words" id="word{{ words_array.index(word) }}" onclick="checkOrder({{ words_array.index(word) }})">{{word}}</button>
+            {%for (word, order) in shuffled_words_array%}
+                <button class="button-words" id="word{{ order }}" onclick="checkOrder({{ order }})">{{word}}</button>
             {%endfor%}
         </div>
         <form method="get">
@@ -42,11 +43,13 @@
             <input type="submit" value="NEXT" id="continue" class="button-sumbit" onclick="changePart()">
         </form>
     </div>
+
+
 </body>
 </html> 
 
 <script type="text/javascript">
-    document.getElementById('youtubeVideo').src = "https://www.youtube.com/embed/" + document.getElementById('urlForVideo').innerHTML + "?key=AIzaSyDrjDPmxDxWjc7Qv817XP0f4CCXJqg_-mQ&controls=0" +
+    document.getElementById('youtubeVideo').src = "https://www.youtube.com/embed/" + document.getElementById('urlForVideo').innerHTML + "?key=AIzaSyDrjDPmxDxWjc7Qv817XP0f4CCXJqg_-mQ&controls=1" +
                                                 "&start=" + parseInt(document.getElementById('startVideo').innerHTML) +
                                                 "&end=" + (parseInt(document.getElementById('startVideo').innerHTML) + parseInt(document.getElementById('durationVideo').innerHTML)+1)
 
@@ -75,11 +78,6 @@
             document.getElementById('part').value = parseInt(window.location.search.substr(6))
         }
         
-    }
-
-    function playVideo(){
-        alert(document.getElementById('youtubeVideo').src )
-        document.getElementById('youtubeVideo').playVideo();
     }
 
     let counter_of_order = 0

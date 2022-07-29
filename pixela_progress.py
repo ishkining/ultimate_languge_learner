@@ -25,10 +25,10 @@ def get_progress():
     try:
         result = str(int(get_response.json()['quantity']) + 1)
         print("Getting pixela is easy")
-    except KeyError:
-        result = None
-    finally:
         return result
+    except KeyError:
+        print("Getting pixela is hard")
+        return get_progress()
 
 
 def update_progress():

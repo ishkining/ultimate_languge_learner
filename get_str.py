@@ -3,13 +3,15 @@ from youtube_transcript_api import YouTubeTranscriptApi
 # srt = YouTubeTranscriptApi.get_transcript(url, languages=['en', 'ko'])
 
 #n6oae38jbyg
-def find_srt(url):
+def find_srt(url, my_language_code, learning_language_code):
     srt = YouTubeTranscriptApi.list_transcripts(url)
+    learning_language = srt.find_manually_created_transcript([learning_language_code])
 
-    my_language = srt.find_manually_created_transcript(['en'])
-    # print(my_language.fetch())
+    try:
+        my_language = srt.find_manually_created_transcript([my_language_code])
+    except:
+        my_language = learning_language.translate(my_language_code)
 
-    learning_language = srt.find_manually_created_transcript(['ko'])
     learning_language_array = []
     my_language_array = []
 

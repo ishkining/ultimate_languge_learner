@@ -26,7 +26,9 @@ def learn_video():
         if request.values['inputText'] is not None:
             print('Hi have a good day!')
             url_for_learning_languages = request.values['inputText'].split('=')[1].split('&')[0]
-            dict_of_words = find_srt(url_for_learning_languages)
+            dict_of_words = find_srt(url_for_learning_languages,
+                                     request.values['my_language'],
+                                     request.values['learning_language'])
             learning_language_list = dict_of_words['learning_language']
             my_language_array = dict_of_words['my_language']
             keep_tracking_progress = request.values['track-progress'] == 'on'
@@ -44,8 +46,9 @@ def learn_video():
         if is_url_empty:
             return redirect(url_for(''))
 
-        shuffled_words_array = random.sample(learning_language_list[search_part()]["text"].split(' '),
-                                             len(learning_language_list[search_part()]["text"].split(' ')))
+        words_array = learning_language_list[search_part()]["text"].split(' ')
+        shuffled_words_array = random.sample([(words_array[order], order) for order in range(len(words_array))],
+                                             len(words_array))
         return render_template('learn_video.html', learning_language_array=learning_language_list, part=search_part(),
                                url=url_for_learning_languages, shuffled_words_array=shuffled_words_array,
                                my_language_array=my_language_array)

@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Dosis');
-
+@font-face {
+  font-family: "Single Day";
+  src: url('../fonts/SingleDay-Regular.ttf') format('truetype');
+}
 :root {
   /* generic */
   --gutterSm: 0.4rem;
@@ -10,7 +13,7 @@
   --colorPrimary400: #7DCE13;
   --colorPrimary600: #EAE509;
   --colorPrimary800: #5BB318;
-  --fontFamily: "Dosis", sans-serif;
+  --fontFamily: "Single Day", sans-serif;
   --fontSizeSm: 1.2rem;
   --fontSizeMd: 1.6rem;
   --fontSizeLg: 2.1rem;
@@ -155,9 +158,33 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: var(--fontFamily);
+    font-size: var(--fontSizeMd);
+    line-height: var(--lineHeightMd);
+}
+
+.select-container{
+    width: 1000px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#my_language {
+    background-color: #D3E4CD;
+    color: black;
+    margin-right: 25px;
+}
+
+#learning_language{
+    background-color: #99A799;
+    color: white;
 }
 
 .button-sumbit {
+    appearance:none;
     background-color: #D83A56;
     border: solid transparent;
     border-radius: 16px;
@@ -185,6 +212,9 @@ body {
     vertical-align: middle;
     white-space: nowrap;
     width: auto;
+    font-family: var(--fontFamily);
+    font-size: var(--fontSizeMd);
+    line-height: var(--lineHeightMd);
 }
 
 .button-sumbit:after {
