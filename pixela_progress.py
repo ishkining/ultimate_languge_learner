@@ -28,7 +28,7 @@ def get_progress():
         return result
     except KeyError:
         print("Getting pixela is hard")
-        return get_progress()
+        return None
 
 
 def update_progress():
@@ -38,7 +38,6 @@ def update_progress():
             'date': datetime.now().strftime('%Y%m%d'),
             'quantity': get_result,
         }
-
     else:
         pixel_data = {
             'date': datetime.now().strftime('%Y%m%d'),

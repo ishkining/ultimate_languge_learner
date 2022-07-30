@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 import random
+import json
 
 from get_str import find_srt
 from pixela_progress import update_progress
@@ -8,6 +9,7 @@ app = Flask(__name__)
 url_for_learning_languages = ''
 learning_language_list = []
 my_language_array = []
+learning_language = ''
 progress_counter = 0
 keep_tracking_progress = False
 is_url_empty = False
@@ -21,7 +23,7 @@ def home():
 @app.route("/learn_video", methods=['GET', 'POST'])
 def learn_video():
     global url_for_learning_languages, learning_language_list, progress_counter, my_language_array, \
-        keep_tracking_progress, is_url_empty
+        keep_tracking_progress, is_url_empty, learning_language
     try:
         if request.values['inputText'] is not None:
             print('Hi have a good day!')
@@ -31,6 +33,7 @@ def learn_video():
                                      request.values['learning_language'])
             learning_language_list = dict_of_words['learning_language']
             my_language_array = dict_of_words['my_language']
+            learning_language = request.values['learning_language']
             keep_tracking_progress = request.values['track-progress'] == 'on'
             is_url_empty = url_for_learning_languages == '' or url_for_learning_languages is None
     except KeyError:
@@ -46,12 +49,19 @@ def learn_video():
         if is_url_empty:
             return redirect(url_for(''))
 
+        try:
+            json_data = request.values['json_file']
+            with open('static/words.json', 'w', encoding="utf-8") as outfile:
+                outfile.write(json_data)
+        except KeyError:
+            print("Sorry, Boss! I cant take json file")
+
         words_array = learning_language_list[search_part()]["text"].split(' ')
         shuffled_words_array = random.sample([(words_array[order], order) for order in range(len(words_array))],
                                              len(words_array))
         return render_template('learn_video.html', learning_language_array=learning_language_list, part=search_part(),
                                url=url_for_learning_languages, shuffled_words_array=shuffled_words_array,
-                               my_language_array=my_language_array)
+                               my_language_array=my_language_array, learning_language=learning_language)
     else:
         print('WHYYYYYYYYYYYYYYYYYYY')
         return 'Not a valid request method for this route'

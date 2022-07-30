@@ -30,7 +30,8 @@
 
             {% set words_array = learning_language_array[part]["text"].split(' ') %}
             {%for (word, order) in shuffled_words_array%}
-                <button class="button-words" id="word{{ order }}" onclick="checkOrder({{ order }})">{{word}}</button>
+                <button class="button-words" id="word{{ order }}" onclick="checkOrder({{ order }})"
+                oncontextmenu="javascript:add_word('{{ word }}', '{{ order }}');return false;">{{word}}</button>
             {%endfor%}
         </div>
         <form method="get">
@@ -40,16 +41,42 @@
             <p hidden id="startVideo">{{ learning_language_array[part]["start"] }}</p>
             <p hidden id="durationVideo">{{ learning_language_array[part]["duration"] }}</p>
             <p hidden id="urlForVideo">{{ url }}</p>
+            <input type="text" name="json_file" id="json_file" hidden>
             <input type="submit" value="NEXT" id="continue" class="button-sumbit" onclick="changePart()">
         </form>
     </div>
 
 
 </body>
-</html> 
+</html>
 
 <script type="text/javascript">
-    document.getElementById('youtubeVideo').src = "https://www.youtube.com/embed/" + document.getElementById('urlForVideo').innerHTML + "?key=AIzaSyDrjDPmxDxWjc7Qv817XP0f4CCXJqg_-mQ&controls=1" +
+    let words_what_we_wanna_learn = {}
+    fetch("{{ url_for('static',filename='words.json') }}")
+    .then(response => response.json())
+    .then(json => words_what_we_wanna_learn = json);
+
+    async function change_color_words_we_know()
+    {
+        await sleep(1000);
+        for (let i = 0; i < document.getElementsByClassName('button-words').length; i++)
+        {
+            let button_word = delete_characters_from_word(document.getElementsByClassName('container-buttons')[0].children[i].textContent);
+            console.log('1')
+            console.log(words_what_we_wanna_learn)
+            if(words_what_we_wanna_learn['{{ learning_language }}'].includes(button_word))
+            {
+                console.log(button_word)
+                let button_id = document.getElementsByClassName('container-buttons')[0].children[i].id;
+                document.getElementById(button_id).style.color = "#b93160";
+
+             }
+            console.log(button_word);
+        }
+    }
+    change_color_words_we_know()
+
+    document.getElementById('youtubeVideo').src = "https://www.youtube.com/embed/" + document.getElementById('urlForVideo').innerHTML + "?key=AIzaSyDrjDPmxDxWjc7Qv817XP0f4CCXJqg_-mQ&controls=0" +
                                                 "&start=" + parseInt(document.getElementById('startVideo').innerHTML) +
                                                 "&end=" + (parseInt(document.getElementById('startVideo').innerHTML) + parseInt(document.getElementById('durationVideo').innerHTML)+1)
 
@@ -65,12 +92,14 @@
         if(document.getElementsByClassName('button-words').length
             == document.getElementById('ordered-word-div').children.length)
         {
+            send_words()
             document.getElementById('part').value = parseInt(window.location.search.substr(6)) + 1
         }
         else if(document.getElementById('checkText').innerHTML.replace('\n', ' ').replace('  ', ' ') == document.getElementById('inputText1').value)
         {
-            alert(true)
+            send_words()
             document.getElementById('part').value = parseInt(window.location.search.substr(6)) + 1
+
         }
         else
         {
@@ -107,15 +136,43 @@
         }
     }
 
-    function sleep(ms) {
+    function sleep(ms)
+    {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    async function change_color_state_button(order, color) {
+    async function change_color_state_button(order, color)
+    {
         document.getElementById('word'+order).style.backgroundColor = color;
         await sleep(1000);
         document.getElementById('word'+order).style.backgroundColor = "#ffffff";
     }
+
+    function add_word(word, order)
+    {
+        word = delete_characters_from_word(word)
+        if (!words_what_we_wanna_learn['{{ learning_language }}'].includes(word))
+        {
+            document.getElementById('word'+order).style.color = "#B93160";
+            words_what_we_wanna_learn['{{ learning_language }}'].push(word)
+        }
+    }
+
+    function delete_characters_from_word(word)
+    {
+        let array_of_symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+', '.', ',', '-', '\"', '\'']
+        word = word.toLowerCase()
+        array_of_symbols.forEach(letter => {
+            word = word.replace(letter, '')
+        })
+        return word
+    }
+
+    function send_words()
+    {
+        document.getElementById('json_file').value = JSON.stringify(words_what_we_wanna_learn)
+    }
+
 </script>
 <!-- <html lang="en">
 <head>
